@@ -1,0 +1,286 @@
+/* Background */
+body {
+    background-image: url('https://media.istockphoto.com/id/1280096529/photo/close-up-of-chessmen-on-chessboard.jpg?s=612x612&w=0&k=20&c=SWP4H8luD-Wrgz-FThOVp00-zOtGOwaNs6GTwZU-QoI='); /* Replace with a chessboard image URL */
+    background-size: cover;
+    font-family: 'Courier New', Courier, monospace;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+}
+
+/* Header */
+header {
+    padding: 20px 0;
+    background-color: #0d0d0d;
+    color: #00bfff;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 0;
+    text-shadow: 2px 2px 8px rgba(0, 0, 255, 0.5); /* Glowing effect */
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #cccccc;
+    margin-top: 0.5rem;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0);
+    padding: 2rem; /* Keep existing padding or adjust as needed */
+    border-radius: 8px;
+    text-align: center;
+    width: 440px;
+    height: 300px; /* Set a fixed height */
+    margin: 20px auto; /* Center the box horizontally */
+    flex-grow: 1; /* Push the box down from the header */
+    overflow: auto; /* Add this to handle overflow if needed */
+    margin-top: 0;
+}
+
+.overlay2 {
+    background: rgba(0, 0, 0, 0);
+    padding: 2rem; /* Keep existing padding or adjust as needed */
+    border-radius: 8px;
+    text-align: center;
+    width: 440px;
+    height: 300px; /* Set a fixed height */
+    margin: 20px auto; /* Center the box horizontally */
+    flex-grow: 1; /* Push the box down from the header */
+    overflow: auto; /* Add this to handle overflow if needed */
+    margin-top: 0;
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+input[type="text"], input[type="password"],  input[type="email"]{
+    padding: 0.5rem;
+    border: 1px solid #00bfff;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+
+input[type="submit"] {
+    padding: 0.7rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #00bfff;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+
+input[type="submit"]:hover {
+    background-color: #009acd;
+}
+
+input[type="file"] {
+    padding: 0.5rem; /* Adjust padding for a better look */
+    border: 1px solid #00bfff; /* Nerdy blue border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffffff; /* White text color */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+    width: 80%; /* Adjust width as needed */
+    margin: 0 auto; /* Center it */
+    display: block; /* Ensure it's a block element */
+}
+
+.upload-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #00bfff;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block; /* To keep it inline */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.upload-button:hover {
+    background-color: #00d0ff70;
+    border-color: #009acd;
+    color: #000;
+}
+
+.decrypt-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #00bfff;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block; /* To keep it inline */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.decrypt-button:hover {
+    background-color: #00d0ff70;
+    border-color: #009acd;
+    color: #000;
+}
+
+input[type="file"]:hover {
+    background-color: #00bfff; /* Change background on hover */
+    border-color: #009acd; /* Change border color on hover */
+    color: #000; /* Dark text on hover for contrast */
+}
+
+/* Top-right links */
+.top-right-links {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column; /* Stack the links vertically */
+    align-items: flex-end; /* Align the links to the right */
+}
+
+.top-right-links a {
+    color: #00bfff;
+    text-decoration: none;
+    margin-bottom: 10px; /* Add space between the links */
+    font-weight: bold;
+}
+
+.top-right-links a:hover {
+    color: #009acd;
+}
+
+.delete-link {
+    color: red !important; /* Force the link to be red */
+    text-decoration: none; /* Remove underline if desired */
+}
+
+.delete-link:hover {
+    text-decoration: underline; /* Underline on hover if desired */
+}
+
+.result-container {
+    margin-top: 20px;
+}
+
+/* Link */
+p {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+a {
+    color: #00bfff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Table Container */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    background-color: #ff00d000; /* Light background color for contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Table Header */
+.user-table th {
+    background-color: #00bfff; /* Blue header */
+    color: #ffffff; /* White text */
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #dddddd;
+}
+
+/* Table Rows */
+.user-table td {
+    padding: 12px 15px;
+    color: #ffffff; /* Dark text */
+}
+
+/* Alternate Row Background */
+.user-table tbody tr:nth-child(even) {
+    background-color: #f9fcff00; /* Light blue-gray for alternate rows */
+}
+
+/* Row Hover Effect */
+.user-table tbody tr:hover {
+    background-color: #4e5051; /* Slightly darker shade on hover */
+}
+
+/* Button Styling */
+.button.delete {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    border-radius: 4px;
+    background-color: #00bfff; /* Blue background */
+    color: #000000; /* Black text */
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* Button Hover Effect */
+.button.delete:hover {
+    background-color: #008fcc; /* Darker blue on hover */
+}
+
+/* Centering the Table Container */
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0; /* Adjust spacing as needed */
+}
+
+/* Styling the table with rounded corners */
+.user-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse; /* Remove double borders between cells */
+    border-radius: 15px; /* Rounded corners */
+    overflow: hidden; /* Ensures the corners apply to content inside the table */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow for depth */
+}
+
+/* Centering and styling the heading */
+.table-heading {
+    text-align: center;
+    font-size: 1.8em;
+    color: #ff9100; /* Blue color */
+    margin-bottom: 20px; /* Space between heading and table */
+}

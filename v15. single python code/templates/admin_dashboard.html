@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Add these styles for the scrollable user table */
+        .table-container {
+            max-height: 340px; /* Adjust this height to control the number of rows visible */
+            overflow-y: auto;
+        }
+        .table-container .user-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .user-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="admin-dashboard">
+    <header>
+        <h1>Queen's Gambit Admin Dashboard</h1>
+    </header>
+    <div class="top-right-links">
+        <a href="{{ url_for('logout') }}" class="button logout">Logout</a>
+    </div>
+    <main>
+        <div class="table-container">
+            <h2 class="table-heading">Registered Users</h2>
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for username, info in users.items() %}
+                    <tr>
+                        <td>{{ username }}</td>
+                        <td>{{ info['email'] }}</td>
+                        <td>
+                            <form action="{{ url_for('delete_user', username=username) }}" method="POST" class="action-form">
+                                <button type="submit" class="button delete" onclick="return confirm('Are you sure you want to delete {{ username }}?');">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queen's Gambit (v13) - Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Add styles for the layout */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .overlay {
+            flex: 1;
+            margin-right: 20px;  /* Space between the boxes */
+        }
+        .overlay2 {
+            flex: 1;
+            margin-left: 20px;   /* Space between the boxes */
+        }
+        /* Loading and progress bar styles */
+        #loading, #loading-decrypt {
+            display: none;
+            margin-top: 20px;
+        }
+        #progress-bar, #progress-bar-decrypt {
+            width: 0%;
+            background: green;
+            height: 20px;
+            border: 1px solid #000;
+        }
+        /* Other styles */
+        .output-label {
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle; /* Aligns label with input field */
+        }
+        #output_file {
+            width: 150px; /* Adjust the width as needed */
+            display: inline-block; /* Ensures it stays in line */
+        }
+        /* File name display style */
+        .file-name {
+            margin-top: 0px;
+            font-style: italic;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Queen's Gambit</h1>
+        <div class="tagline">Where your data plays by its own rules</div>
+    </header>
+
+    <div class="top-right-links">
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('delete_account') }}" class="delete-link">Delete Account</a>
+    </div>
+
+    <div class="container">
+        <div class="overlay">
+            <form id="upload-form" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                <label for="file" class="upload-button">Choose a file</label>
+                <input type="file" id="file" name="file" required style="display: none;">
+                <div id="file-name-upload" class="file-name"></div> <!-- Display selected file name here -->
+                <input type="submit" value="Encrypt">
+            </form>
+            <div id="loading">
+                <p>Loading... Please wait.</p>
+                <div id="progress-bar"></div>
+            </div>
+            <div id="result" class="result-container"></div>
+        </div>
+        
+        <div class="overlay2">
+            <form id="decrypt-form" action="{{ url_for('decrypt_file') }}" method="post" enctype="multipart/form-data">
+                <label for="pgn_file" class="upload-button">Choose a .pgn file</label>
+                <input type="file" id="pgn_file" name="pgn_file" required style="display: none;">
+                <div id="file-name-decrypt" class="file-name"></div> <!-- Display selected .pgn file name here -->             
+                
+                <input type="submit" value="Decrypt">
+            </form>
+            <div id="loading-decrypt">
+                <p>Loading... Please wait.</p>
+                <div id="progress-bar-decrypt"></div>
+            </div>
+            <div id="result-decrypt" class="result-container"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Show selected file name for upload form
+            $('#file').on('change', function() {
+                var fileName = $(this).val().split('\\').pop();
+                $('#file-name-upload').text('Selected file: ' + fileName);
+            });
+
+            // Show selected file name for decrypt form
+            $('#pgn_file').on('change', function() {
+                var fileName = $(this).val().split('\\').pop();
+                $('#file-name-decrypt').text('Selected file: ' + fileName);
+            });
+
+            // Handle form submission for upload form
+            $('#upload-form').on('submit', function(e) {
+                e.preventDefault();
+                $('#loading').show();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.onprogress = function(event) {
+                            if (event.lengthComputable) {
+                                var percentComplete = (event.loaded / event.total) * 100;
+                                $('#progress-bar').css('width', percentComplete + '%');
+                            }
+                        };
+                        return xhr;
+                    },
+                    success: function(response) {
+                        var pgnFileName = response.pgn_file;
+                        var message = '<strong>' + response.message + '</strong> <a href="/uploads/' + pgnFileName + '" download><strong>Download PGN</strong></a>';
+                        $('#result').html(message);
+                        $('#loading').hide();
+                    },
+                    error: function() {
+                        $('#result').html('An error occurred. Please try again.');
+                        $('#loading').hide();
+                    }
+                });
+            });
+
+            // Handle form submission for decrypt form
+            $('#decrypt-form').on('submit', function(e) {
+                e.preventDefault();
+                $('#loading-decrypt').show();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.onprogress = function(event) {
+                            if (event.lengthComputable) {
+                                var percentComplete = (event.loaded / event.total) * 100;
+                                $('#progress-bar-decrypt').css('width', percentComplete + '%');
+                            }
+                        };
+                        return xhr;
+                    },
+                    success: function(response) {
+                        var outputFileName = response.output_file;
+                        var message = '<strong>' + response.message + '</strong> <a href="/uploads/' + outputFileName + '" download><strong>Download Decrypted File</strong></a>';
+                        $('#result-decrypt').html(message);
+                        $('#loading-decrypt').hide();
+                    },
+                    error: function() {
+                        $('#result-decrypt').html('An error occurred. Please try again.');
+                        $('#loading-decrypt').hide();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
